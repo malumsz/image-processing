@@ -1,7 +1,7 @@
 import sys
 sys.path.append('app/util')
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QFileDialog, QWidget, QSpacerItem, QSizePolicy, QMessageBox, QDialog
-from PyQt5.QtGui import QPixmap, QImage, QIcon
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QFileDialog, QWidget, QSpacerItem, QSizePolicy, QMessageBox, QDialog, QFrame
+from PyQt5.QtGui import QPixmap, QImage, QIcon, QColor
 from PyQt5.QtCore import Qt
 from PIL import Image, ImageOps
 from split_rgb import split_rgb_with_dialog, RGBDialog
@@ -101,11 +101,21 @@ class ImageEditor(QMainWindow):
         layout = QVBoxLayout()
         layout.addLayout(top_button_layout)
         layout.addWidget(self.image_label)
+        filter_section_label = QLabel('Filtros:', self)
+        filter_section_label.setFixedHeight(40)
+        filter_section_label.setAlignment(Qt.AlignCenter)
+        filter_section_label.setStyleSheet("background-color: grey; border: none;")
+        layout.addWidget(filter_section_label)
         layout.addWidget(self.gray_button)
         layout.addWidget(self.rgb_button)
         layout.addWidget(self.binary_button)
         layout.addWidget(self.mean_button)
         layout.addWidget(self.median_button)
+        transform_section_label = QLabel('Transformação:', self)
+        transform_section_label.setFixedHeight(40)
+        transform_section_label.setAlignment(Qt.AlignCenter)
+        transform_section_label.setStyleSheet("background-color: grey; border: none;")
+        layout.addWidget(transform_section_label)
         layout.addWidget(self.flip90_button)
         layout.addLayout(flip_button_layout)
 
