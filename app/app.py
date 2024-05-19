@@ -75,13 +75,18 @@ class ImageEditor(QMainWindow):
         self.median_button.clicked.connect(self.apply_median)
         
         self.flip90_button = QPushButton('Girar em 90º', self)
-        #self.mean_button.clicked.connect(self.apply_mean)
+        self.flip90_button.clicked.connect(self.rotate_90_degrees)
         
         self.fliph_button = QPushButton('Inverter imagem horizontalmente', self)
-        #self.median_button.clicked.connect(self.apply_median)
+        self.fliph_button.clicked.connect(self.flip_horizontal)
         
         self.flipv_button = QPushButton('Inverter imagem verticalmente', self)
-        #self.median_button.clicked.connect(self.apply_median)
+        self.flipv_button.clicked.connect(self.flip_vertical)
+        
+        # Layout horizontal para os botões Flip Horizontal e Flip Vertical
+        flip_button_layout = QHBoxLayout()
+        flip_button_layout.addWidget(self.fliph_button)
+        flip_button_layout.addWidget(self.flipv_button)
         
         # Layout horizontal para os botões Load e Save
         top_button_layout = QHBoxLayout()
@@ -101,6 +106,8 @@ class ImageEditor(QMainWindow):
         layout.addWidget(self.binary_button)
         layout.addWidget(self.mean_button)
         layout.addWidget(self.median_button)
+        layout.addWidget(self.flip90_button)
+        layout.addLayout(flip_button_layout)
 
         container = QWidget()
         container.setLayout(layout)
@@ -147,6 +154,21 @@ class ImageEditor(QMainWindow):
     def revert_image(self):
         if self.original_image is not None:
             self.image = self.original_image.copy()  # Restaura a imagem original
+            self.display_image()
+            
+    def rotate_90_degrees(self):
+        if self.image is not None:
+            self.image = self.image.transpose(Image.ROTATE_90)
+            self.display_image()
+            
+    def flip_horizontal(self):
+        if self.image is not None:
+            self.image = self.image.transpose(Image.FLIP_LEFT_RIGHT)
+            self.display_image()
+
+    def flip_vertical(self):
+        if self.image is not None:
+            self.image = self.image.transpose(Image.FLIP_TOP_BOTTOM)
             self.display_image()
             
     def apply_grayscale(self):
