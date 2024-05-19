@@ -14,7 +14,7 @@ class ImageEditor(QMainWindow):
         super().__init__()
 
         self.setWindowTitle('Processamento de Imagens')
-        self.setGeometry(100, 100, 600, 500)
+        self.setGeometry(100, 100, 700, 600)
         
         # ícone da janela
         self.setWindowIcon(QIcon('app/util/icon.png'))  
