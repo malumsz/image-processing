@@ -133,7 +133,14 @@ class ImageEditor(QMainWindow):
             file_name, _ = QFileDialog.getSaveFileName(self, "Save Image File", "", "PNG Files (*.png);;JPEG Files (*.jpg *.jpeg);;BMP Files (*.bmp)", options=options)
             if file_name:
                 try:
-                    self.image.save(file_name)
+                    # Obtém a imagem atualmente exibida na tela
+                    pixmap = self.image_label.pixmap()
+                    if not pixmap.isNull():
+                        # Converte o QPixmap para QImage
+                        q_image = pixmap.toImage()
+
+                        # Salva a imagem exibida na tela
+                        q_image.save(file_name)
                 except Exception as e:
                     print(f"Erro ao salvar a imagem: {e}")
 
