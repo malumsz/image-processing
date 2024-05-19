@@ -1,7 +1,7 @@
 from PIL import Image
 
 # Carregando a imagem em tons de cinza
-gray_img = Image.open("images/girafa_gray_hardway.jpg")
+gray_img = Image.open("image-processing/pillow/images/girafa_gray_hardway.jpg")
 
 # Obtendo as dimensões da imagem
 width, height = gray_img.size

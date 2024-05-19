@@ -1,7 +1,7 @@
 from PIL import Image
 
 # Abre a imagem
-img = Image.open("images/girafa.jpg")
+img = Image.open("image-processing/pillow/images/girafa.jpg")
 
 # acessa o pixel na posição (100, 50)
 pixel = img.getpixel((100, 50))
