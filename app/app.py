@@ -6,6 +6,8 @@ from PyQt5.QtCore import Qt
 from PIL import Image, ImageOps
 from split_rgb import split_rgb_with_dialog, RGBDialog
 from binary import convert_to_binary
+from mean import apply_mean_filter
+from median import apply_median_filter
 
 class ImageEditor(QMainWindow):
     def __init__(self):
@@ -67,8 +69,19 @@ class ImageEditor(QMainWindow):
         self.binary_button.clicked.connect(self.convert_to_binary)
         
         self.mean_button = QPushButton('Média', self)
+        self.mean_button.clicked.connect(self.apply_mean)
         
         self.median_button = QPushButton('Mediana', self)
+        self.median_button.clicked.connect(self.apply_median)
+        
+        self.flip90_button = QPushButton('Girar em 90º', self)
+        #self.mean_button.clicked.connect(self.apply_mean)
+        
+        self.fliph_button = QPushButton('Inverter imagem horizontalmente', self)
+        #self.median_button.clicked.connect(self.apply_median)
+        
+        self.flipv_button = QPushButton('Inverter imagem verticalmente', self)
+        #self.median_button.clicked.connect(self.apply_median)
         
         # Layout horizontal para os botões Load e Save
         top_button_layout = QHBoxLayout()
@@ -160,6 +173,16 @@ class ImageEditor(QMainWindow):
         if self.image is not None:
             bin_image = convert_to_binary(self.image)
             self.display_image(bin_image)
+            
+    def apply_mean(self):
+        if self.image is not None:
+            mean_filtered_image = apply_mean_filter(self.image)
+            self.display_image(mean_filtered_image)
+            
+    def apply_median(self):
+        if self.image is not None:
+            median_filtered_image = apply_median_filter(self.image)
+            self.display_image(median_filtered_image)
         
     def convert_to_qimage(self, pil_image):
         try:

@@ -5,7 +5,7 @@ def convert_to_grayscale(image):
         image = image.convert('L')
     return image
 
-def convert_to_binary(image, threshold=128):
+def convert_to_binary(image, threshold=165): #modificacao do threshold
     if image.mode != 'L':
         image = convert_to_grayscale(image)
     
