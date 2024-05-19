@@ -5,6 +5,7 @@ from PyQt5.QtGui import QPixmap, QImage, QIcon
 from PyQt5.QtCore import Qt
 from PIL import Image, ImageOps
 from split_rgb import split_rgb_with_dialog, RGBDialog
+from binary import convert_to_binary
 
 class ImageEditor(QMainWindow):
     def __init__(self):
@@ -58,12 +59,12 @@ class ImageEditor(QMainWindow):
 
         self.rgb_button = QPushButton('Separar RGB', self)
         self.rgb_button.clicked.connect(self.split_rgb_dialog)
-        #abrir janela de aviso com outros 3 botoes pra escolher qual canal mostrar (red, green, blue)
         
         self.gray_button = QPushButton('Grayscale', self)
         self.gray_button.clicked.connect(self.apply_grayscale)
         
-        self.bw_button = QPushButton('Preto e branco', self)
+        self.binary_button = QPushButton('Binário', self)
+        self.binary_button.clicked.connect(self.convert_to_binary)
         
         self.mean_button = QPushButton('Média', self)
         
@@ -84,7 +85,7 @@ class ImageEditor(QMainWindow):
         layout.addWidget(self.image_label)
         layout.addWidget(self.gray_button)
         layout.addWidget(self.rgb_button)
-        layout.addWidget(self.bw_button)
+        layout.addWidget(self.binary_button)
         layout.addWidget(self.mean_button)
         layout.addWidget(self.median_button)
 
@@ -116,14 +117,17 @@ class ImageEditor(QMainWindow):
                 except Exception as e:
                     print(f"Erro ao salvar a imagem: {e}")
 
-    def display_image(self):
-        if self.image is not None:
+    def display_image(self, img=None):
+        if img is None:
+            img = self.image
+
+        if img is not None:
             label_width = self.image_label.width()
             label_height = self.image_label.height()
             
-            self.image.thumbnail((label_width, label_height), Image.LANCZOS)
+            img.thumbnail((label_width, label_height), Image.LANCZOS)
 
-            q_image = self.convert_to_qimage(self.image)
+            q_image = self.convert_to_qimage(img)
             self.image_label.setPixmap(QPixmap.fromImage(q_image))
             self.image_label.setAlignment(Qt.AlignCenter)
             
@@ -151,6 +155,11 @@ class ImageEditor(QMainWindow):
                 elif channel == 'blue':
                     self.image = blue
                 self.display_image()
+                
+    def convert_to_binary(self):
+        if self.image is not None:
+            bin_image = convert_to_binary(self.image)
+            self.display_image(bin_image)
         
     def convert_to_qimage(self, pil_image):
         try:
