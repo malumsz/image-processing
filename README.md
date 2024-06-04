@@ -3,7 +3,7 @@
 # Processamento Básico de Imagens 📷
 Aplicativo em ***python*** para um sistema de manipulação e processamento de imagens na disciplina de *Computação Gráfica*.
 
-[![Image Processing](https://img.shields.io/badge/Image_Processing-APP-purple.svg?logo=photon&logoColor=f5f5f5&style=for-the-badge)](PDF.pdf)
+[![Image Processing](https://img.shields.io/badge/Image_Processing-APP-purple.svg?logo=photon&logoColor=f5f5f5&style=for-the-badge)]()
 
 </div>
 
